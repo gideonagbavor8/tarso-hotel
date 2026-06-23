@@ -1,0 +1,65 @@
+/* responsive.css */
+
+/* Breakpoint 1: 900px (Tablets / small laptops) */
+@media (max-width: 900px) {
+  /* Booking Form Grid (4 columns to 2) */
+  .booking-form-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .booking-form-grid > button {
+    grid-column: span 2 !important;
+  }
+
+  /* Rooms Grid (3 columns to 1) */
+  .rooms-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .rooms-grid > div {
+    grid-column: span 1 !important;
+  }
+
+  /* About Section Grid (2 columns to 1) */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  /* Restaurant Grid (2 columns to 1) */
+  .restaurant-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  /* Contact Grid (2 columns to 1) */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+  .contact-grid > div {
+    grid-column: span 1 !important;
+  }
+
+  /* Reviews Grid (3 columns to 1) */
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Footer Grid (3 columns to 1) */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+}
+
+/* Breakpoint 2: 640px (Mobile phones) */
+@media (max-width: 640px) {
+  /* Booking Form Grid (2 columns to 1) */
+  .booking-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .booking-form-grid > button {
+    grid-column: span 1 !important;
+  }
+}
