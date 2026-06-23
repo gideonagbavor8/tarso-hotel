@@ -138,49 +138,62 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-[72px] left-0 right-0 z-40 flex flex-col gap-4 px-[5%] py-6"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed top-[72px] left-0 right-0 z-40 flex flex-col gap-0 px-[5%] py-6"
             style={{ background: "rgba(44,26,14,0.98)" }}
           >
-            {links.map((link) => (
-              <button
+            {links.map((link, index) => (
+              <motion.button
                 key={link.href}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, delay: index * 0.07 }}
                 onClick={() => scrollTo(link.href)}
-                className="text-left text-sm font-medium tracking-widest uppercase bg-transparent border-none cursor-pointer"
-                style={{ color: "var(--sand)" }}
+                className="w-full text-left font-medium tracking-widest uppercase bg-transparent border-none cursor-pointer"
+                style={{
+                  color: "var(--sand)",
+                  padding: "1rem 0",
+                  fontSize: "1rem",
+                  borderBottom: "1px solid rgba(242,221,180,0.1)",
+                }}
               >
                 {link.label}
-              </button>
+              </motion.button>
             ))}
-            <button
+            <motion.button
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
               onClick={() => scrollTo("#booking")}
-              className="cursor-pointer transition-all duration-200 mt-2"
+              className="cursor-pointer transition-all duration-200"
               style={{
-                background: "transparent",
-                color: "#E8A84C",
-                border: "1px solid #E8A84C",
-                padding: "0.5rem 1.4rem",
+                background: "var(--clay)",
+                color: "#ffffff",
+                border: "none",
+                padding: "1rem",
                 borderRadius: "2px",
-                fontSize: "0.78rem",
+                fontSize: "0.9rem",
                 fontWeight: 600,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 width: "100%",
+                marginTop: "0.5rem",
+                textAlign: "center",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#E8A84C";
-                e.currentTarget.style.color = "#2C1A0E";
+                e.currentTarget.style.background = "var(--terracotta)";
+                e.currentTarget.style.color = "#ffffff";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#E8A84C";
+                e.currentTarget.style.background = "var(--clay)";
+                e.currentTarget.style.color = "#ffffff";
               }}
             >
               Reserve a Room
-            </button>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

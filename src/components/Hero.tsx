@@ -21,7 +21,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden flex flex-col items-center justify-center"
+      className="relative overflow-hidden flex flex-col items-center justify-center max-[640px]:!pt-[120px]"
       style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem" }}
     >
       {/* Background Image */}
@@ -67,6 +67,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={0.25}
+          className="max-[640px]:!text-[clamp(2.8rem,10vw,3.8rem)]"
           style={{
             fontFamily: "var(--font-cormorant)",
             fontSize: "clamp(3.8rem, 8vw, 6.5rem)",
@@ -89,7 +90,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={0.4}
-          className="font-light leading-relaxed"
+          className="font-light leading-relaxed max-[640px]:!text-[0.95rem]"
           style={{
             color: "#ffffff",
             fontSize: "1.1rem",
@@ -108,13 +109,13 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={0.55}
-          className="flex flex-wrap justify-center gap-4 mt-9"
+          className="flex flex-wrap justify-center gap-4 mt-9 max-[640px]:w-full max-[640px]:flex-col"
         >
           <motion.button
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => scrollTo("#booking")}
-            className="cursor-pointer transition-all duration-200"
+            className="cursor-pointer transition-all duration-200 max-[640px]:w-full"
             style={{
               background: "var(--clay)",
               color: "#ffffff",
@@ -143,7 +144,7 @@ export default function Hero() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => scrollTo("#rooms")}
-            className="cursor-pointer transition-all duration-200"
+            className="cursor-pointer transition-all duration-200 max-[640px]:w-full"
             style={{
               background: "transparent",
               color: "#E8A84C",
@@ -174,7 +175,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={0.7}
-          className="flex justify-center gap-12 mt-14 pt-8 w-full"
+          className="flex justify-center gap-12 mt-14 pt-8 w-full max-[640px]:!gap-6"
           style={{ borderTop: "1px solid rgba(242,221,180,0.12)" }}
         >
           {[
@@ -185,6 +186,7 @@ export default function Hero() {
             <>
               <div key={badge.label} className="text-center">
                 <div
+                  className="max-[640px]:!text-[1.85rem]"
                   style={{
                     fontFamily: "var(--font-cormorant)",
                     fontSize: "2.4rem",
@@ -197,7 +199,7 @@ export default function Hero() {
                   {badge.num}
                 </div>
                 <div
-                  className="mt-1"
+                  className="mt-1 max-[640px]:!text-[0.62rem]"
                   style={{
                     fontSize: "0.78rem",
                     color: "#ffffff",
