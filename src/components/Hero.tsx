@@ -21,8 +21,8 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "4rem" }}
+      className="relative overflow-hidden flex flex-col items-center justify-center"
+      style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem" }}
     >
       {/* Background Image */}
       <Image
@@ -33,10 +33,10 @@ export default function Hero() {
         style={{ objectFit: "cover", objectPosition: "center" }}
       />
 
-      {/* Dark overlay — 0.72 opacity ensures AA contrast on all text */}
+      {/* Dark overlay — lightened to 0.55 so the photo reads clearly */}
       <div
         className="absolute inset-0"
-        style={{ background: "rgba(44,26,14,0.72)" }}
+        style={{ background: "rgba(44,26,14,0.55)" }}
       />
 
       {/* Content */}
@@ -69,10 +69,11 @@ export default function Hero() {
           custom={0.25}
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(3.2rem, 7vw, 5.5rem)",
+            fontSize: "clamp(3.8rem, 8vw, 6.5rem)",
             fontWeight: 600,
             lineHeight: 1.05,
             color: "var(--sand)",
+            textShadow: "0 2px 20px rgba(0,0,0,0.4)",
           }}
         >
           Where the Volta
@@ -88,12 +89,13 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={0.4}
-          className="mt-5 font-light leading-relaxed"
+          className="font-light leading-relaxed"
           style={{
-            color: "rgba(242,221,180,0.7)",
-            fontSize: "1.05rem",
-            maxWidth: "600px",
-            margin: "1.25rem auto 0",
+            color: "#ffffff",
+            fontSize: "1.1rem",
+            maxWidth: "580px",
+            margin: "1.5rem auto 0",
+            textShadow: "0 1px 8px rgba(0,0,0,0.6)",
           }}
         >
           Tarso Hotel has been Ho&apos;s trusted address for decades — centrally
@@ -112,14 +114,27 @@ export default function Hero() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => scrollTo("#booking")}
-            className="px-8 py-3 text-white text-sm font-semibold tracking-widest uppercase rounded-sm border-none cursor-pointer transition-colors duration-200"
-            style={{ background: "var(--clay)" }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "var(--terracotta)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "var(--clay)")
-            }
+            className="cursor-pointer transition-all duration-200"
+            style={{
+              background: "var(--clay)",
+              color: "#ffffff",
+              border: "none",
+              padding: "0.9rem 2.2rem",
+              borderRadius: "3px",
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              boxShadow: "0 4px 16px rgba(196,122,58,0.5)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--terracotta)";
+              e.currentTarget.style.boxShadow = "0 6px 24px rgba(196,122,58,0.65)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "var(--clay)";
+              e.currentTarget.style.boxShadow = "0 4px 16px rgba(196,122,58,0.5)";
+            }}
           >
             Book Your Stay
           </motion.button>
@@ -128,19 +143,25 @@ export default function Hero() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => scrollTo("#rooms")}
-            className="px-8 py-3 text-sm font-medium tracking-widest uppercase rounded-sm cursor-pointer transition-all duration-200"
+            className="cursor-pointer transition-all duration-200"
             style={{
               background: "transparent",
-              color: "var(--sand)",
-              border: "1px solid rgba(242,221,180,0.4)",
+              color: "#E8A84C",
+              border: "2px solid #E8A84C",
+              padding: "0.9rem 2.2rem",
+              borderRadius: "3px",
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--gold)";
-              e.currentTarget.style.color = "var(--gold)";
+              e.currentTarget.style.background = "#E8A84C";
+              e.currentTarget.style.color = "#2C1A0E";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(242,221,180,0.4)";
-              e.currentTarget.style.color = "var(--sand)";
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = "#E8A84C";
             }}
           >
             View Rooms
@@ -160,31 +181,45 @@ export default function Hero() {
             { num: "20+", label: "Years of Service" },
             { num: "GH₵150", label: "Starting Rate" },
             { num: "4.5★", label: "Guest Rating" },
-          ].map((badge) => (
-            <div key={badge.label} className="text-center">
-              <div
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "2rem",
-                  fontWeight: 600,
-                  color: "var(--gold)",
-                  lineHeight: 1,
-                }}
-              >
-                {badge.num}
+          ].map((badge, i, arr) => (
+            <>
+              <div key={badge.label} className="text-center">
+                <div
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "2.4rem",
+                    fontWeight: 600,
+                    color: "var(--gold)",
+                    lineHeight: 1,
+                    textShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  {badge.num}
+                </div>
+                <div
+                  className="mt-1"
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "#ffffff",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {badge.label}
+                </div>
               </div>
-              <div
-                className="mt-1"
-                style={{
-                  fontSize: "0.72rem",
-                  color: "rgba(242,221,180,0.55)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {badge.label}
-              </div>
-            </div>
+              {i < arr.length - 1 && (
+                <div
+                  key={`divider-${i}`}
+                  style={{
+                    width: "1px",
+                    height: "40px",
+                    background: "rgba(255,255,255,0.2)",
+                    alignSelf: "center",
+                  }}
+                />
+              )}
+            </>
           ))}
         </motion.div>
       </div>
