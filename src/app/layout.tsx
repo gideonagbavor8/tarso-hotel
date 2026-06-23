@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description:
     "Tarso Hotel is one of Ho's pioneering hotels — centrally located, warmly run, and rooted in the spirit of Ewe hospitality on the Amedzofe Road, Volta Region, Ghana.",
   keywords: "Tarso Hotel, Ho Ghana, Volta Region hotel, hotels in Ho, Ghana accommodation",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
