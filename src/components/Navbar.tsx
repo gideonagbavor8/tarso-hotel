@@ -36,7 +36,7 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[5%] py-5 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-16 py-[1.2rem] transition-all duration-300"
         style={{
           background: scrolled
             ? "rgba(44,26,14,0.96)"
@@ -48,7 +48,7 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <div>
+        <div style={{ marginLeft: "1rem" }}>
           <span
             style={{
               fontFamily: "var(--font-cormorant)",
@@ -75,7 +75,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8 list-none">
+        <ul className="hidden md:flex items-center gap-[2.8rem] list-none">
           {links.map((link) => (
             <li key={link.href}>
               <button
@@ -105,12 +105,13 @@ export default function Navbar() {
             background: "transparent",
             color: "#E8A84C",
             border: "1px solid #E8A84C",
-            padding: "0.5rem 1.4rem",
+            padding: "0.6rem 1.8rem",
             borderRadius: "2px",
             fontSize: "0.78rem",
             fontWeight: 600,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
+            marginRight: "1rem",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "#E8A84C";
@@ -142,7 +143,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed top-[72px] left-0 right-0 z-40 flex flex-col gap-0 px-[5%] py-6"
+            className="fixed top-[72px] left-0 right-0 z-40 flex flex-col gap-0 px-[8%] py-6"
             style={{ background: "rgba(44,26,14,0.98)" }}
           >
             {links.map((link, index) => (
@@ -155,7 +156,7 @@ export default function Navbar() {
                 className="w-full text-left font-medium tracking-widest uppercase bg-transparent border-none cursor-pointer"
                 style={{
                   color: "var(--sand)",
-                  padding: "1rem 0",
+                  padding: "1rem 1rem",
                   fontSize: "1rem",
                   borderBottom: "1px solid rgba(242,221,180,0.1)",
                 }}
@@ -181,6 +182,7 @@ export default function Navbar() {
                 textTransform: "uppercase",
                 width: "100%",
                 marginTop: "0.5rem",
+                marginLeft: 0,
                 textAlign: "center",
               }}
               onMouseEnter={(e) => {
