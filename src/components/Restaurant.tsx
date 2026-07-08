@@ -263,7 +263,7 @@ export default function Restaurant() {
             }}
           >
             <Image
-              src="/images/food-banku.png"
+              src="/images/food/food-banku.png"
               alt="Food Banku"
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
@@ -322,7 +322,7 @@ export default function Restaurant() {
             }}
           >
             <Image
-              src="/images/food-fufu.png"
+              src="/images/food/food-fufu.png"
               alt="Fufu with light soup at Tarso Chop Bar"
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
