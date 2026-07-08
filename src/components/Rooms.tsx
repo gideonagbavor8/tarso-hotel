@@ -4,6 +4,8 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
+import Carousel from "@/components/Carousel";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (delay = 0) => ({
@@ -20,7 +22,14 @@ const rooms = [
     desc: "Private en-suite bathroom, ceiling fan, wardrobe, and a comfortable double bed. Perfect for the solo traveller or couple who wants full privacy.",
     amenities: ["En-suite Bathroom", "Double Bed", "Ceiling Fan", "Wardrobe", "Mosquito Net"],
     price: "GH₵150",
-    image: "/images/room-selfcontained.png",
+    images: [
+      "/images/room-self-contained/room-selfcontained.png",
+      "/images/room-self-contained/IMG-20260706-WA0012.jpg",
+      "/images/room-self-contained/IMG-20260706-WA0013.jpg",
+      "/images/room-self-contained/IMG-20260706-WA0035.jpg",
+      "/images/room-self-contained/IMG-20260706-WA0064.jpg",
+      "/images/room-self-contained/IMG-20260706-WA0071.jpg"
+    ],
     span: true,
   },
   {
@@ -29,7 +38,14 @@ const rooms = [
     desc: "Clean, comfortable single room with shared bathroom facilities. Great value for the budget-conscious traveller.",
     amenities: ["Shared Bathroom", "Single Bed", "Ceiling Fan"],
     price: "GH₵100",
-    image: "/images/room-shared.png",
+    images: [
+      "/images/room-shared/room-shared.png",
+      "/images/room-shared/IMG-20260706-WA0014.jpg",
+      "/images/room-shared/IMG-20260706-WA0028.jpg",
+      "/images/room-shared/IMG-20260706-WA0029.jpg",
+      "/images/room-shared/IMG-20260706-WA0032.jpg",
+
+    ],
     span: false,
   },
   {
@@ -38,7 +54,17 @@ const rooms = [
     desc: "A spacious room with two beds, suitable for families or colleagues travelling together.",
     amenities: ["Two Beds", "En-suite", "Ceiling Fan"],
     price: "GH₵200",
-    image: "/images/room-family.jpeg",
+    images: [
+      "/images/room-family/room-family.jpeg",
+      "/images/room-family/IMG-20260706-WA0039.jpg",
+      "/images/room-family/IMG-20260706-WA0042.jpg",
+      "/images/room-family/IMG-20260706-WA0045.jpg",
+      "/images/room-family/IMG-20260706-WA0054.jpg",
+      "/images/room-family/IMG-20260706-WA0055.jpg",
+      "/images/room-family/IMG-20260706-WA0058.jpg",
+      "/images/room-family/IMG-20260706-WA0061.jpg",
+      "/images/room-family/IMG-20260706-WA0062.jpg"
+    ],
     span: false,
   },
 ];
@@ -169,11 +195,10 @@ export default function Rooms() {
                 overflow: "hidden",
               }}
             >
-              <Image
-                src={room.image}
-                alt={room.title}
-                fill
-                style={{ objectFit: "cover", objectPosition: "center" }}
+              <Carousel 
+                images={room.images} 
+                alt={room.title} 
+                height="100%" 
               />
               {/* Tag badge */}
               <span
@@ -189,7 +214,7 @@ export default function Rooms() {
                   textTransform: "uppercase" as const,
                   padding: "0.3rem 0.7rem",
                   borderRadius: "2px",
-                  zIndex: 1,
+                  zIndex: 20,
                 }}
               >
                 {room.tag}

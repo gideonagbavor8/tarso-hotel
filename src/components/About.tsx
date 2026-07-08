@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import Carousel from "@/components/Carousel";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -72,11 +73,16 @@ export default function About() {
               overflow: "hidden",
             }}
           >
-            <Image
-              src="/images/hotel-exterior.png"
+            <Carousel
+              images={[
+                "/images/exterior/hotel-exterior.png",
+                "/images/exterior/IMG-20260706-WA0011.jpg",
+                "/images/exterior/IMG-20260706-WA0017.jpg",
+                "/images/exterior/IMG-20260706-WA0040.jpg",
+                "/images/exterior/IMG-20260706-WA0048.jpg"
+              ]}
               alt="Tarso Hotel exterior — Ho, Volta Region, Ghana"
-              fill
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              height="100%"
             />
           </div>
 
@@ -96,6 +102,7 @@ export default function About() {
               fontFamily: "var(--font-cormorant)",
               textAlign: "center",
               boxShadow: "0 8px 24px rgba(44,26,14,0.3)",
+              zIndex: 20,
             }}
           >
             <strong style={{ display: "block", fontSize: "2.2rem", fontWeight: 600 }}>

@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Fragment } from "react";
+import Carousel from "@/components/Carousel";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -24,19 +26,25 @@ export default function Hero() {
       className="relative overflow-hidden flex flex-col items-center justify-center max-[640px]:!pt-[120px]"
       style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem" }}
     >
-      {/* Background Image */}
-      <Image
-        src="/images/hero-bg.png"
-        alt="Tarso Hotel — Ho, Volta Region, Ghana"
-        fill
-        priority
-        style={{ objectFit: "cover", objectPosition: "center" }}
-      />
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+        <Carousel
+          images={[
+            "/images/hero/hero-bg.png",
+            "/images/hero/IMG-20260706-WA0018.webp",
+            "/images/hero/IMG-20260706-WA0027.webp",
+            "/images/hero/IMG-20260706-WA0031.webp",
+            "/images/hero/IMG-20260706-WA0046.webp"
+          ]}
+          alt="Tarso Hotel — Ho, Volta Region, Ghana"
+          height="100%"
+        />
+      </div>
 
       {/* Dark overlay — lightened to 0.55 so the photo reads clearly */}
       <div
-        className="absolute inset-0"
-        style={{ background: "rgba(44,26,14,0.55)" }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "rgba(44,26,14,0.55)", zIndex: 1 }}
       />
 
       {/* Content */}
@@ -183,8 +191,8 @@ export default function Hero() {
             { num: "GH₵150", label: "Starting Rate" },
             { num: "4.5★", label: "Guest Rating" },
           ].map((badge, i, arr) => (
-            <>
-              <div key={badge.label} className="text-center">
+            <Fragment key={badge.label}>
+              <div className="text-center">
                 <div
                   className="max-[640px]:!text-[1.85rem]"
                   style={{
@@ -221,7 +229,7 @@ export default function Hero() {
                   }}
                 />
               )}
-            </>
+            </Fragment>
           ))}
         </motion.div>
       </div>
