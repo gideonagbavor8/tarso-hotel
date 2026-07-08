@@ -138,6 +138,21 @@ const rooms = [
 export default function Rooms() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    // Hide swipe hint after 3.5s
+    const timer = setTimeout(() => setShowSwipeHint(false), 3500);
+    return () => {
+      mq.removeEventListener("change", handler);
+      clearTimeout(timer);
+    };
+  }, []);
 
   const scrollToBooking = () => {
     const target = document.querySelector("#booking");
@@ -148,7 +163,7 @@ export default function Rooms() {
     <section
       id="rooms"
       ref={ref}
-      style={{ background: "var(--cream)", padding: "6rem 5%" }}
+      style={{ background: "var(--cream)", padding: "6rem 0", position: "relative" }}
     >
       {/* Header */}
       <div
@@ -159,6 +174,7 @@ export default function Rooms() {
           flexWrap: "wrap",
           gap: "1rem",
           marginBottom: "3rem",
+          padding: "0 5%",
         }}
       >
         <motion.div
@@ -226,31 +242,37 @@ export default function Rooms() {
         </motion.button>
       </div>
 
-      {/* Rooms Grid */}
-      <div
-        className="rooms-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "1.5rem",
-        }}
-      >
-        {rooms.map((room, i) => (
-          <motion.div
-            key={room.title}
-            variants={fadeUp}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.2 + i * 0.15}
-            whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(44,26,14,0.16)" }}
+      {/* Rooms — desktop grid / mobile scroll carousel */}
+      {isMobile ? (
+        <>
+          {/* Mobile: horizontal scroll snap carousel */}
+          <div
             style={{
-              background: "#fff",
-              borderRadius: "3px",
-              boxShadow: "0 2px 16px rgba(44,26,14,0.07)",
-              gridColumn: room.span ? "span 2" : "span 1",
-              transition: "box-shadow 0.25s",
+              display: "flex",
+              flexDirection: "row",
+              overflowX: "auto",
+              gap: "1rem",
+              padding: "0 5% 1.5rem",
+              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "none",
             }}
+            // hide webkit scrollbar via className
+            className="rooms-mobile-scroll"
           >
+            {rooms.map((room, i) => (
+              <div
+                key={room.title}
+                style={{
+                  minWidth: "85vw",
+                  scrollSnapAlign: "start",
+                  background: "#fff",
+                  borderRadius: "3px",
+                  boxShadow: "0 2px 16px rgba(44,26,14,0.07)",
+                  flexShrink: 0,
+                  overflow: "hidden",
+                }}
+              >
             <TiltCard style={{ width: "100%", height: "100%", borderRadius: "3px", overflow: "hidden" }}>
             {/* Room Image */}
             <div
@@ -287,90 +309,252 @@ export default function Rooms() {
               </span>
             </div>
 
-            {/* Room Body */}
-            <div style={{ padding: "1.4rem" }}>
-              <h3
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "1.4rem",
-                  fontWeight: 600,
-                  color: "var(--earth)",
-                  marginBottom: "0.4rem",
-                }}
-              >
-                {room.title}
-              </h3>
-              <p style={{ fontSize: "0.83rem", color: "var(--text-mid)", lineHeight: 1.6, marginBottom: "1rem" }}>
-                {room.desc}
-              </p>
-
-              {/* Amenities */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.2rem" }}>
-                {room.amenities.map((a) => (
-                  <span
-                    key={a}
-                    style={{
-                      fontSize: "0.72rem",
-                      color: "var(--text-mid)",
-                      background: "var(--cream)",
-                      padding: "0.25rem 0.6rem",
-                      borderRadius: "20px",
-                      border: "1px solid var(--sand)",
-                    }}
-                  >
-                    {a}
-                  </span>
-                ))}
-              </div>
-
-              {/* Footer */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  paddingTop: "1rem",
-                  borderTop: "1px solid var(--sand)",
-                }}
-              >
-                <div
+                {/* Room Body */}
+              <div style={{ padding: "1.4rem" }}>
+                <h3
                   style={{
                     fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.5rem",
+                    fontSize: "1.4rem",
+                    fontWeight: 600,
                     color: "var(--earth)",
-                    fontWeight: 600,
+                    marginBottom: "0.4rem",
                   }}
                 >
-                  {room.price}{" "}
-                  <small style={{ fontSize: "0.75rem", color: "var(--text-mid)", fontFamily: "Inter, sans-serif", fontWeight: 400 }}>
-                    / night
-                  </small>
+                  {room.title}
+                </h3>
+                <p style={{ fontSize: "0.83rem", color: "var(--text-mid)", lineHeight: 1.6, marginBottom: "1rem" }}>
+                  {room.desc}
+                </p>
+                {/* Amenities */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.2rem" }}>
+                  {room.amenities.map((a) => (
+                    <span
+                      key={a}
+                      style={{
+                        fontSize: "0.72rem",
+                        color: "var(--text-mid)",
+                        background: "var(--cream)",
+                        padding: "0.25rem 0.6rem",
+                        borderRadius: "20px",
+                        border: "1px solid var(--sand)",
+                      }}
+                    >
+                      {a}
+                    </span>
+                  ))}
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={scrollToBooking}
+                {/* Footer */}
+                <div
                   style={{
-                    background: "var(--clay)",
-                    color: "#fff",
-                    padding: "0.5rem 1.1rem",
-                    border: "none",
-                    borderRadius: "2px",
-                    fontSize: "0.78rem",
-                    fontWeight: 600,
-                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingTop: "1rem",
+                    borderTop: "1px solid var(--sand)",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--terracotta)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--clay)")}
                 >
-                  Book Now
-                </motion.button>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-cormorant)",
+                      fontSize: "1.5rem",
+                      color: "var(--earth)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {room.price}{" "}
+                    <small style={{ fontSize: "0.75rem", color: "var(--text-mid)", fontFamily: "Inter, sans-serif", fontWeight: 400 }}>
+                      / night
+                    </small>
+                  </div>
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={scrollToBooking}
+                    style={{
+                      background: "var(--clay)",
+                      color: "#fff",
+                      padding: "0.5rem 1.1rem",
+                      border: "none",
+                      borderRadius: "2px",
+                      fontSize: "0.78rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Book Now
+                  </motion.button>
+                </div>
               </div>
-            </div>
-            </TiltCard>
-          </motion.div>
-        ))}
-      </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Swipe hint */}
+          {showSwipeHint && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.4, 1, 0.4, 1, 0] }}
+              transition={{ duration: 3, times: [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1] }}
+              style={{
+                textAlign: "center",
+                marginTop: "0.5rem",
+                fontSize: "0.75rem",
+                color: "var(--text-mid)",
+                letterSpacing: "0.1em",
+                userSelect: "none",
+              }}
+            >
+              ← swipe to explore →
+            </motion.div>
+          )}
+        </>
+      ) : (
+        /* Desktop: 3-column grid with TiltCard */
+        <div
+          className="rooms-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "1.5rem",
+            padding: "0 5%",
+          }}
+        >
+          {rooms.map((room, i) => (
+            <motion.div
+              key={room.title}
+              variants={fadeUp}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={0.2 + i * 0.15}
+              whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(44,26,14,0.16)" }}
+              style={{
+                background: "#fff",
+                borderRadius: "3px",
+                boxShadow: "0 2px 16px rgba(44,26,14,0.07)",
+                gridColumn: room.span ? "span 2" : "span 1",
+                transition: "box-shadow 0.25s",
+              }}
+            >
+              <TiltCard style={{ width: "100%", height: "100%", borderRadius: "3px", overflow: "hidden" }}>
+              {/* Room Image */}
+              <div
+                style={{
+                  width: "100%",
+                  height: room.span ? "280px" : "200px",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                <Carousel
+                  images={room.images}
+                  alt={room.title}
+                  height="100%"
+                />
+                {/* Tag badge */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "1rem",
+                    left: "1rem",
+                    background: "var(--earth)",
+                    color: "var(--gold)",
+                    fontSize: "0.7rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase" as const,
+                    padding: "0.3rem 0.7rem",
+                    borderRadius: "2px",
+                    zIndex: 20,
+                  }}
+                >
+                  {room.tag}
+                </span>
+              </div>
+
+              {/* Room Body */}
+              <div style={{ padding: "1.4rem" }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "1.4rem",
+                    fontWeight: 600,
+                    color: "var(--earth)",
+                    marginBottom: "0.4rem",
+                  }}
+                >
+                  {room.title}
+                </h3>
+                <p style={{ fontSize: "0.83rem", color: "var(--text-mid)", lineHeight: 1.6, marginBottom: "1rem" }}>
+                  {room.desc}
+                </p>
+
+                {/* Amenities */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.2rem" }}>
+                  {room.amenities.map((a) => (
+                    <span
+                      key={a}
+                      style={{
+                        fontSize: "0.72rem",
+                        color: "var(--text-mid)",
+                        background: "var(--cream)",
+                        padding: "0.25rem 0.6rem",
+                        borderRadius: "20px",
+                        border: "1px solid var(--sand)",
+                      }}
+                    >
+                      {a}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingTop: "1rem",
+                    borderTop: "1px solid var(--sand)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--font-cormorant)",
+                      fontSize: "1.5rem",
+                      color: "var(--earth)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {room.price}{" "}
+                    <small style={{ fontSize: "0.75rem", color: "var(--text-mid)", fontFamily: "Inter, sans-serif", fontWeight: 400 }}>
+                      / night
+                    </small>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={scrollToBooking}
+                    style={{
+                      background: "var(--clay)",
+                      color: "#fff",
+                      padding: "0.5rem 1.1rem",
+                      border: "none",
+                      borderRadius: "2px",
+                      fontSize: "0.78rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--terracotta)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--clay)")}
+                  >
+                    Book Now
+                  </motion.button>
+                </div>
+              </div>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

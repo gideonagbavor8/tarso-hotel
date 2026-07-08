@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageLoader from "@/components/PageLoader";
+import CallButton from "@/components/CallButton";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <Footer />
         <WhatsAppButton />
         <ScrollToTop />
+        <CallButton />
       </main>
     </PageLoader>
   );

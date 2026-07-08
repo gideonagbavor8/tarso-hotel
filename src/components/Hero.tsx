@@ -67,10 +67,13 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Dark overlay — lightened to 0.55 so the photo reads clearly */}
+      {/* Dark overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "rgba(44,26,14,0.55)", zIndex: 1 }}
+        style={{
+          background: "linear-gradient(to bottom, rgba(20,10,4,0.72) 0%, rgba(20,10,4,0.58) 50%, rgba(20,10,4,0.75) 100%)",
+          zIndex: 1,
+        }}
       />
 
       {/* Content */}
@@ -85,9 +88,10 @@ export default function Hero() {
           style={{
             color: "var(--gold)",
             fontSize: "0.78rem",
-            fontWeight: 600,
+            fontWeight: 700,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
+            textShadow: "0 1px 6px rgba(0,0,0,0.8)",
           }}
         >
           <span className="block h-px w-10" style={{ background: "var(--gold)" }} />
@@ -107,13 +111,13 @@ export default function Hero() {
             fontSize: "clamp(3.8rem, 8vw, 6.5rem)",
             fontWeight: 600,
             lineHeight: 1.05,
-            color: "var(--sand)",
-            textShadow: "0 2px 20px rgba(0,0,0,0.4)",
+            color: "#FFFFFF",
+            textShadow: "0 2px 4px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.7)",
           }}
         >
           Where the Volta
           <br />
-          <em style={{ color: "var(--gold)" }}>welcomes you</em>
+          <em style={{ color: "var(--gold)", textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}>welcomes you</em>
           <br />
           home.
         </motion.h1>
@@ -126,11 +130,11 @@ export default function Hero() {
           custom={0.4}
           className="font-light leading-relaxed max-[640px]:!text-[0.95rem]"
           style={{
-            color: "#ffffff",
+            color: "#FFFFFF",
             fontSize: "1.1rem",
             maxWidth: "580px",
             margin: "1.5rem auto 0",
-            textShadow: "0 1px 8px rgba(0,0,0,0.6)",
+            textShadow: "0 1px 3px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.8)",
           }}
         >
           Tarso Hotel has been Ho&apos;s trusted address for decades — centrally

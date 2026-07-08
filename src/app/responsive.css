@@ -1,5 +1,22 @@
 /* responsive.css */
 
+/* Call button — mobile only */
+.call-button-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .call-button-mobile {
+    display: flex !important;
+  }
+}
+
+/* Hide scrollbar on mobile rooms carousel */
+.rooms-mobile-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
 /* Breakpoint 1: 900px (Tablets / small laptops) */
 @media (max-width: 900px) {
   /* Booking Form Grid (4 columns to 2) */
