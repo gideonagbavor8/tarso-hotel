@@ -384,7 +384,8 @@ export default function Rooms() {
                   </motion.button>
                 </div>
               </div>
-              </div>
+              </TiltCard>
+            </div>
             ))}
           </div>
 

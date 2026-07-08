@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function WhatsAppButton() {
-  const message = "Hello, I'd like to make an enquiry about Tarso Hotel.";
+  const message = "Hello, I'd like to book a room at Tarso Hotel.";
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/233362267320?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/233245132299?text=${encodedMessage}`;
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -37,10 +37,10 @@ export default function WhatsAppButton() {
           ],
         }}
         transition={{
-          opacity: { delay: 3, duration: 0.5 },
-          y: { delay: 3, duration: 0.5 },
+          opacity: { delay: 2.5, duration: 0.5 },
+          y: { delay: 2.5, duration: 0.5 },
           boxShadow: {
-            delay: 3.6,
+            delay: 3,
             duration: 2,
             repeat: Infinity,
             ease: 'easeInOut',
@@ -51,7 +51,7 @@ export default function WhatsAppButton() {
           position: 'fixed',
           bottom: '1.5rem',
           right: '1rem',
-          zIndex: 50,
+          zIndex: 999,
           display: 'flex',
           alignItems: 'center',
           gap: '0.45rem',
@@ -91,7 +91,7 @@ export default function WhatsAppButton() {
         position: 'fixed',
         bottom: '2rem',
         right: '2rem',
-        zIndex: 50,
+        zIndex: 999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
