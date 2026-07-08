@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import "./responsive.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,8 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`} suppressHydrationWarning>
-      <body className={inter.className}>{children}
-        <Analytics />
+      <body className={inter.className}>
+        <SmoothScroll>
+          {children}
+          <Analytics />
+        </SmoothScroll>
       </body>
     </html>
   );

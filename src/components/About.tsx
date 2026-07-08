@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import Carousel from "@/components/Carousel";
@@ -40,6 +40,10 @@ const pillars = [
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  
+  const imageX = useTransform(scrollYProgress, [0, 0.4], ["-80px", "0px"]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
     <section
@@ -58,11 +62,7 @@ export default function About() {
       >
         {/* Image Block */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.1}
-          style={{ position: "relative" }}
+          style={{ position: "relative", x: imageX, opacity: imageOpacity }}
         >
           <div
             style={{
@@ -88,9 +88,9 @@ export default function About() {
 
           {/* Floating badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.6 }}
             style={{
               position: "absolute",
               bottom: "-1.5rem",
@@ -125,10 +125,9 @@ export default function About() {
         {/* Text Block */}
         <div>
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.2}
+            initial={{ opacity: 0, y: -20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
             style={{
               fontSize: "0.75rem",
               fontWeight: 600,
@@ -152,29 +151,31 @@ export default function About() {
             Our Story
           </motion.div>
 
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.3}
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 600,
-              color: "var(--earth)",
-              lineHeight: 1.15,
-            }}
-          >
-            A Ghanaian landmark in the heart of Ho
-          </motion.h2>
+          <h2 style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+            {"A Ghanaian landmark in the heart of Ho".split(" ").map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.08 }}
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontSize: "clamp(2rem, 4vw, 3rem)",
+                  fontWeight: 600,
+                  color: "var(--earth)",
+                  lineHeight: 1.15,
+                }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h2>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.4}
-          >
-            <p
+          <div>
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.3 }}
               style={{
                 marginTop: "1.2rem",
                 color: "var(--text-mid)",
@@ -186,25 +187,31 @@ export default function About() {
               with a genuine Ghanaian motel spirit and run by a well-known figure
               in the Volta Region who has watched this city grow and flourish for
               decades.
-            </p>
-            <p style={{ color: "var(--text-mid)", lineHeight: 1.8, marginBottom: "1.2rem" }}>
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.45 }}
+              style={{ color: "var(--text-mid)", lineHeight: 1.8, marginBottom: "1.2rem" }}
+            >
               We sit at the centre of Ho on the Amedzofe Road, close to the
               action yet refreshingly quiet. Every room is kept clean and
               comfortable. Every meal at the Tarso Chop Bar is made with local
               ingredients and real care.
-            </p>
-            <p style={{ color: "var(--text-mid)", lineHeight: 1.8 }}>
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.6 }}
+              style={{ color: "var(--text-mid)", lineHeight: 1.8 }}
+            >
               We are not a chain. We are a people&apos;s hotel — and that is
               exactly what makes us worth returning to.
-            </p>
-          </motion.div>
+            </motion.p>
+          </div>
 
           {/* Pillars */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.55}
+          <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -212,10 +219,13 @@ export default function About() {
               marginTop: "2rem",
             }}
           >
-            {pillars.map((p) => (
+            {pillars.map((p, index) => (
               <motion.div
                 key={p.title}
-                whileHover={{ y: -3, boxShadow: "0 6px 20px rgba(44,26,14,0.1)" }}
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 + index * 0.12 }}
+                whileHover={{ scale: 1.04, y: -4, boxShadow: "0 6px 20px rgba(44,26,14,0.1)" }}
                 style={{
                   padding: "1.2rem",
                   border: "1px solid var(--sand)",
@@ -243,7 +253,7 @@ export default function About() {
                 </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

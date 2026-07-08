@@ -1,19 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-interface PageLoaderProps {
-  children: React.ReactNode;
-}
-
-export default function PageLoader({ children }: PageLoaderProps) {
+export default function PageLoader({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1800);
+    const timer = setTimeout(() => setLoading(false), 2200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -22,72 +16,71 @@ export default function PageLoader({ children }: PageLoaderProps) {
       <AnimatePresence>
         {loading && (
           <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            key="page-loader"
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
             style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "var(--earth)",
+              position: 'fixed',
+              inset: 0,
               zIndex: 9999,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1.5rem",
+              background: 'var(--earth, #2C1A0E)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            {/* Logo/Name with fade-in and scale animation */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              style={{ textAlign: "center" }}
-            >
-              <h1
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  color: "var(--gold)",
-                  fontSize: "3.5rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  marginBottom: "0.2rem",
-                }}
-              >
-                Tarso Hotel
-              </h1>
-              <span
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  color: "var(--sand)",
-                  fontSize: "0.8rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  opacity: 0.8,
-                }}
-              >
-                Ho · Volta Region
-              </span>
-            </motion.div>
-
-            {/* Custom Progress Bar Loader */}
-            <motion.div
+            {/* TARSO */}
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
               style={{
-                width: "80px",
-                height: "2px",
-                background: "var(--gold)",
-                borderRadius: "2px",
+                fontFamily: 'var(--font-cormorant)',
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontWeight: 600,
+                color: 'var(--gold, #E8A84C)',
+                letterSpacing: '0.3em',
+                lineHeight: 1,
+                display: 'block',
               }}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
+            >
+              TARSO
+            </motion.span>
+
+            {/* HOTEL */}
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              style={{
+                fontFamily: 'var(--font-cormorant)',
+                fontSize: 'clamp(1rem, 3vw, 1.8rem)',
+                fontWeight: 600,
+                color: 'var(--sand, #F2DDB4)',
+                letterSpacing: '0.6em',
+                display: 'block',
+                marginTop: '-0.5rem',
+              }}
+            >
+              HOTEL
+            </motion.span>
+
+            {/* Gold line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '120px' }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              style={{
+                height: '1px',
+                background: 'var(--gold, #E8A84C)',
+                margin: '1.2rem auto 0',
+              }}
             />
           </motion.div>
         )}
       </AnimatePresence>
+
       {children}
     </>
   );

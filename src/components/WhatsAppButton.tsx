@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function WhatsAppButton() {
   const message = "Hello, I'd like to book a room at Tarso Hotel.";
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/233362267320?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/233245132299?text=${encodedMessage}`;
 
   return (
     <motion.a

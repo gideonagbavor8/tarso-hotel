@@ -2,9 +2,75 @@
 
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import Carousel from "@/components/Carousel";
+
+function TiltCard({ children, style, className }: any) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDesktop || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    setRotateX(((y - centerY) / centerY) * -8);
+    setRotateY(((x - centerX) / centerX) * 8);
+    setMousePos({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    if (isDesktop) setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (!isDesktop) return;
+    setIsHovering(false);
+    setRotateX(0);
+    setRotateY(0);
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+      style={{
+        ...style,
+        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        transition: isHovering ? "transform 0.15s ease" : "transform 0.4s ease",
+        position: "relative",
+      }}
+    >
+      {isDesktop && isHovering && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "inherit",
+            background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.08) 0%, transparent 60%)`,
+            pointerEvents: "none",
+            zIndex: 10,
+          }}
+        />
+      )}
+      {children}
+    </div>
+  );
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -180,12 +246,12 @@ export default function Rooms() {
             style={{
               background: "#fff",
               borderRadius: "3px",
-              overflow: "hidden",
               boxShadow: "0 2px 16px rgba(44,26,14,0.07)",
               gridColumn: room.span ? "span 2" : "span 1",
               transition: "box-shadow 0.25s",
             }}
           >
+            <TiltCard style={{ width: "100%", height: "100%", borderRadius: "3px", overflow: "hidden" }}>
             {/* Room Image */}
             <div
               style={{
@@ -301,6 +367,7 @@ export default function Rooms() {
                 </motion.button>
               </div>
             </div>
+            </TiltCard>
           </motion.div>
         ))}
       </div>

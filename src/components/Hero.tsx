@@ -1,9 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, animate } from "framer-motion";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import Carousel from "@/components/Carousel";
+
+function CountUp({ from, to, duration, suffix = "", decimals = 0, prefix = "" }: { from: number, to: number, duration: number, suffix?: string, decimals?: number, prefix?: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [value, setValue] = useState(from);
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(from, to, {
+        duration: duration,
+        ease: "easeOut",
+        onUpdate(v) {
+          setValue(v);
+        }
+      });
+      return () => controls.stop();
+    }
+  }, [from, to, duration, isInView]);
+
+  return <span ref={ref}>{prefix}{value.toFixed(decimals)}{suffix}</span>;
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -15,6 +36,10 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+
   const scrollTo = (href: string) => {
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -23,11 +48,12 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      ref={ref}
       className="relative overflow-hidden flex flex-col items-center justify-center max-[640px]:!pt-[120px]"
       style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem" }}
     >
       {/* Background Image Carousel */}
-      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+      <motion.div className="absolute inset-0 w-full" style={{ zIndex: 0, height: "110%", y }}>
         <Carousel
           images={[
             "/images/hero/hero-bg.png",
@@ -39,7 +65,7 @@ export default function Hero() {
           alt="Tarso Hotel — Ho, Volta Region, Ghana"
           height="100%"
         />
-      </div>
+      </motion.div>
 
       {/* Dark overlay — lightened to 0.55 so the photo reads clearly */}
       <div
@@ -187,9 +213,9 @@ export default function Hero() {
           style={{ borderTop: "1px solid rgba(242,221,180,0.12)" }}
         >
           {[
-            { num: "20+", label: "Years of Service" },
-            { num: "GH₵150", label: "Starting Rate" },
-            { num: "4.5★", label: "Guest Rating" },
+            { num: <CountUp from={0} to={20} duration={2} suffix="+" />, label: "Years of Service" },
+            { num: <CountUp from={0} to={150} duration={2} prefix="GH₵" />, label: "Starting Rate" },
+            { num: <CountUp from={0} to={4.5} duration={2} suffix="★" decimals={1} />, label: "Guest Rating" },
           ].map((badge, i, arr) => (
             <Fragment key={badge.label}>
               <div className="text-center">
