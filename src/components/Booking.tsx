@@ -19,7 +19,7 @@ export default function Booking() {
 
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [guests, setGuests] = useState("1 Guest");
+  const [guests, setGuests] = useState(1);
   const [roomType, setRoomType] = useState("Self-Contained (GH₵150)");
   const [status, setStatus] = useState<{ msg: string; ok: boolean } | null>(null);
 
@@ -157,16 +157,14 @@ export default function Booking() {
           {/* Guests */}
           <div>
             <label style={labelStyle}>Guests</label>
-            <select
+            <input
+              type="number"
+              min="1"
               value={guests}
-              onChange={(e) => setGuests(e.target.value)}
+              onChange={(e) => setGuests(Number(e.target.value))}
               style={inputStyle}
-            >
-              <option>1 Guest</option>
-              <option>2 Guests</option>
-              <option>3 Guests</option>
-              <option>4+ Guests</option>
-            </select>
+              placeholder="Enter number of guests"
+            />
           </div>
 
           {/* Room Type */}

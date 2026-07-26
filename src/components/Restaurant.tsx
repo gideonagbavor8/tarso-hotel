@@ -15,29 +15,24 @@ const fadeUp = {
 
 const menuItems = [
   {
-    name: "Fufu with Light Soup",
-    desc: "Pounded cassava and plantain served with a rich light soup and your choice of meat.",
-    price: "GH₵25",
+    name: "Continental Breakfast",
+    desc: "Omelet, Toasted Bread, Sausage, Milk",
+    price: "GH₵45",
   },
   {
-    name: "Banku with Tilapia",
-    desc: "Fermented corn and cassava dough served with grilled fresh tilapia and pepper sauce.",
+    name: "English Breakfast",
+    desc: "Tom Brown, Toasted Bread, Omelet, Sausage, Milk",
+    price: "GH₵45",
+  },
+  {
+    name: "Breakfast Platter",
+    desc: "Jollof Rice, Sausage, Omelet, Milk",
     price: "GH₵35",
   },
   {
-    name: "Jollof Rice with Chicken",
-    desc: "Seasoned Ghanaian jollof rice served with grilled or fried chicken and salad.",
-    price: "GH₵30",
-  },
-  {
-    name: "Omo Tuo with Groundnut Soup",
-    desc: "Rice balls in a rich, aromatic groundnut soup with assorted meat.",
-    price: "GH₵28",
-  },
-  {
-    name: "Kenkey with Fried Fish",
-    desc: "Fermented corn dumplings served with crispy fried fish and fresh pepper.",
-    price: "GH₵20",
+    name: "Milo Delight",
+    desc: "Milo, Toasted Bread, Omelet, Sausage",
+    price: "GH₵35",
   },
 ];
 
@@ -91,7 +86,7 @@ export default function Restaurant() {
                   background: "var(--clay)",
                 }}
               />
-              Tarso Chop Bar
+              Anita's Morning Treats
             </div>
 
             <h2
@@ -103,9 +98,9 @@ export default function Restaurant() {
                 lineHeight: 1.15,
               }}
             >
-              Food from the Volta,
+              Breakfast Menu,
               <br />
-              <em style={{ color: "var(--clay)" }}>cooked with love</em>
+              <em style={{ color: "var(--clay)" }}>freshly prepared daily</em>
             </h2>
 
             <p
@@ -116,10 +111,38 @@ export default function Restaurant() {
                 lineHeight: 1.8,
               }}
             >
-              Our Chop Bar serves Ghanaian home cooking every day. Fufu, banku,
-              rice dishes, and fresh soups — made the way your mother would make
-              them.
+              Start your day with a delicious breakfast at Anita's Morning Treats.
+              Freshly prepared meals, hot beverages, and wholesome breakfast options
+              served daily at Tarso Hotel Restaurants, Ho.
             </p>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={0.15}
+              style={{
+                marginBottom: "2rem",
+                padding: "1rem 1.25rem",
+                background: "rgba(196,122,58,0.06)",
+                borderLeft: "3px solid var(--clay)",
+                borderRadius: "4px",
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  color: "var(--text-mid)",
+                  lineHeight: 1.7,
+                  fontSize: "0.9rem",
+                }}
+              >
+                Delivery available at a fee. Order via <strong>0594085689</strong>.
+              </p>
+            </motion.div>
+
+
+
           </motion.div>
 
           {/* Menu Items */}
@@ -302,7 +325,7 @@ export default function Restaurant() {
                 zIndex: 3,
               }}
             >
-              Fresh, local ingredients every morning
+              Anita's Morning Treats
             </span>
           </motion.div>
 
@@ -361,7 +384,7 @@ export default function Restaurant() {
                 zIndex: 3,
               }}
             >
-              The Tarso Chop Bar — open daily
+              Breakfast served daily at Tarso Hotel
             </span>
           </motion.div>
         </motion.div>
