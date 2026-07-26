@@ -17,7 +17,7 @@ const rooms = [
   {
     tag: "Most Popular",
     title: "Self-Contained Room",
-    desc: "Private en-suite bathroom, ceiling fan, wardrobe, and a comfortable double bed. Perfect for the solo traveller or couple who wants full privacy.",
+    desc: "Private en-suite bathroom, ceiling fan, wardrobe, and a comfortable double bed.",
     amenities: ["En-suite Bathroom", "Double Bed", "Ceiling Fan", "Wardrobe", "Mosquito Net"],
     images: [
       "/images/room-self-contained/self-cont.jpeg",
@@ -30,7 +30,7 @@ const rooms = [
   {
     tag: "Budget Stay",
     title: "Double Room",
-    desc: "Clean, comfortable double room with bathroom facilities. Great value for the budget-conscious traveller.",
+    desc: "Clean, comfortable double room with bathroom facilities. Great value for budget travellers.",
     amenities: ["Bathroom", "Double Bed", "Ceiling Fan"],
     images: [
       "/images/room-shared/room-share.jpeg",
@@ -182,7 +182,7 @@ export default function Rooms() {
         </motion.button>
       </div>
 
-      {/* ── PRICING CARD — full width on top ── */}
+      {/* ── PRICING CARD ── */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -192,17 +192,16 @@ export default function Rooms() {
           background: "var(--earth)",
           border: "1px solid rgba(232,168,76,0.2)",
           borderRadius: "8px",
-          padding: "2.5rem",
+          padding: isMobile ? "1.5rem" : "2.5rem",
           marginBottom: "3rem",
           boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
         }}
       >
-        {/* Card header */}
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           <div
             style={{
               fontFamily: "var(--font-cormorant)",
-              fontSize: "1.8rem",
+              fontSize: isMobile ? "1.3rem" : "1.8rem",
               fontWeight: 600,
               color: "var(--gold)",
               letterSpacing: "0.1em",
@@ -241,7 +240,6 @@ export default function Rooms() {
           </div>
         </div>
 
-        {/* Gold divider */}
         <div
           style={{
             height: "1px",
@@ -254,7 +252,7 @@ export default function Rooms() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "80px 130px 1fr",
+            gridTemplateColumns: isMobile ? "60px 100px 1fr" : "80px 130px 1fr",
             paddingBottom: "0.7rem",
             borderBottom: "1px solid rgba(232,168,76,0.25)",
             marginBottom: "0.3rem",
@@ -264,8 +262,8 @@ export default function Rooms() {
             <span
               key={h}
               style={{
-                fontSize: "0.7rem",
-                letterSpacing: "0.14em",
+                fontSize: isMobile ? "0.62rem" : "0.7rem",
+                letterSpacing: "0.1em",
                 textTransform: "uppercase" as const,
                 color: "var(--clay)",
                 fontWeight: 700,
@@ -276,63 +274,54 @@ export default function Rooms() {
           ))}
         </div>
 
-        {/* Rate rows — no scroll, all visible */}
-        <div
-          style={{
-            display: "block",
-          }}
-        >
-          {[rateRows].map((group, gi) => (
-            <div key={gi}>
-              {group.map((row) => (
-                <motion.div
-                  key={row.room}
-                  whileHover={{ backgroundColor: "rgba(232,168,76,0.05)" }}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "80px 130px 1fr",
-                    padding: "0.65rem 0.4rem",
-                    borderBottom: "1px solid rgba(232,168,76,0.07)",
-                    borderRadius: "3px",
-                    cursor: "default",
-                    transition: "background 0.2s",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontSize: "1.05rem",
-                      fontWeight: 600,
-                      color: "var(--gold)",
-                    }}
-                  >
-                    Room {row.room}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "0.85rem",
-                      fontWeight: 600,
-                      color: "var(--sand)",
-                    }}
-                  >
-                    {row.rate}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "rgba(242,221,180,0.6)",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {row.pkg}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+        {/* Rate rows */}
+        <div style={{ display: "block" }}>
+          {rateRows.map((row) => (
+            <motion.div
+              key={row.room}
+              whileHover={{ backgroundColor: "rgba(232,168,76,0.05)" }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "60px 100px 1fr" : "80px 130px 1fr",
+                padding: "0.6rem 0.4rem",
+                borderBottom: "1px solid rgba(232,168,76,0.07)",
+                borderRadius: "3px",
+                cursor: "default",
+                transition: "background 0.2s",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontSize: isMobile ? "0.9rem" : "1.05rem",
+                  fontWeight: 600,
+                  color: "var(--gold)",
+                }}
+              >
+                Room {row.room}
+              </span>
+              <span
+                style={{
+                  fontSize: isMobile ? "0.75rem" : "0.85rem",
+                  fontWeight: 600,
+                  color: "var(--sand)",
+                }}
+              >
+                {row.rate}
+              </span>
+              <span
+                style={{
+                  fontSize: isMobile ? "0.68rem" : "0.75rem",
+                  color: "rgba(242,221,180,0.6)",
+                  lineHeight: 1.5,
+                }}
+              >
+                {row.pkg}
+              </span>
+            </motion.div>
           ))}
         </div>
 
-        {/* Footer */}
         <div
           style={{
             display: "flex",
@@ -345,13 +334,7 @@ export default function Rooms() {
             borderTop: "1px solid rgba(232,168,76,0.12)",
           }}
         >
-          <p
-            style={{
-              fontSize: "0.72rem",
-              color: "rgba(242,221,180,0.4)",
-              fontStyle: "italic",
-            }}
-          >
+          <p style={{ fontSize: "0.72rem", color: "rgba(242,221,180,0.4)", fontStyle: "italic" }}>
             All prices are VAT inclusive. Contact us for group and long-stay rates.
           </p>
           <motion.button
@@ -379,15 +362,16 @@ export default function Rooms() {
         </div>
       </motion.div>
 
-      {/* ── ROOM CARDS — three equal columns below ── */}
+      {/* ── ROOM CARDS ── */}
       {isMobile ? (
         <>
           <div
             style={{
               display: "flex",
               overflowX: "auto",
-              gap: "1rem",
-              paddingBottom: "1.5rem",
+              gap: "0.8rem",
+              paddingBottom: "1rem",
+              paddingLeft: "1px",
               scrollSnapType: "x mandatory",
               WebkitOverflowScrolling: "touch",
               scrollbarWidth: "none",
@@ -397,27 +381,35 @@ export default function Rooms() {
               <div
                 key={room.title}
                 style={{
-                  minWidth: "85vw",
+                  minWidth: "72vw",
+                  maxWidth: "72vw",
                   scrollSnapAlign: "start",
                   background: "#fff",
                   borderRadius: "6px",
                   boxShadow: "0 2px 16px rgba(44,26,14,0.08)",
                   flexShrink: 0,
                   overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <div style={{ width: "100%", height: "240px" }}>
+                {/* Image */}
+                <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0 }}>
                   <Carousel
                     images={room.images}
                     alt={room.title}
-                    height="240px"
+                    height="160px"
                     objectFit="cover"
+                    showArrows={false}
+                    showDots={true}
                   />
                 </div>
-                <div style={{ padding: "1.4rem" }}>
+
+                {/* Body */}
+                <div style={{ padding: "0.9rem", display: "flex", flexDirection: "column", flex: 1 }}>
                   <span
                     style={{
-                      fontSize: "0.68rem",
+                      fontSize: "0.62rem",
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase" as const,
@@ -429,26 +421,31 @@ export default function Rooms() {
                   <h3
                     style={{
                       fontFamily: "var(--font-cormorant)",
-                      fontSize: "1.4rem",
+                      fontSize: "1.15rem",
                       fontWeight: 600,
                       color: "var(--earth)",
-                      margin: "0.3rem 0 0.5rem",
+                      margin: "0.2rem 0 0.4rem",
                     }}
                   >
                     {room.title}
                   </h3>
-                  <p style={{ fontSize: "0.83rem", color: "var(--text-mid)", lineHeight: 1.6, marginBottom: "1rem" }}>
+                  <p style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-mid)",
+                    lineHeight: 1.5,
+                    marginBottom: "0.8rem",
+                  }}>
                     {room.desc}
                   </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.2rem" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.9rem" }}>
                     {room.amenities.map((a) => (
                       <span
                         key={a}
                         style={{
-                          fontSize: "0.72rem",
+                          fontSize: "0.62rem",
                           color: "var(--text-mid)",
                           background: "var(--cream)",
-                          padding: "0.25rem 0.6rem",
+                          padding: "0.2rem 0.5rem",
                           borderRadius: "20px",
                           border: "1px solid var(--sand)",
                         }}
@@ -464,14 +461,15 @@ export default function Rooms() {
                       width: "100%",
                       background: "var(--clay)",
                       color: "#fff",
-                      padding: "0.7rem",
+                      padding: "0.6rem",
                       border: "none",
                       borderRadius: "3px",
-                      fontSize: "0.82rem",
+                      fontSize: "0.75rem",
                       fontWeight: 700,
                       letterSpacing: "0.06em",
                       textTransform: "uppercase" as const,
                       cursor: "pointer",
+                      marginTop: "auto",
                     }}
                   >
                     Book Now
@@ -480,6 +478,7 @@ export default function Rooms() {
               </div>
             ))}
           </div>
+
           {showSwipeHint && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -522,7 +521,6 @@ export default function Rooms() {
                 transition: "box-shadow 0.25s",
               }}
             >
-              {/* Image */}
               <div style={{ width: "100%", height: "240px", overflow: "hidden" }}>
                 <Carousel
                   images={room.images}
@@ -532,7 +530,6 @@ export default function Rooms() {
                 />
               </div>
 
-              {/* Body */}
               <div style={{ padding: "1.5rem" }}>
                 <span
                   style={{
@@ -565,7 +562,6 @@ export default function Rooms() {
                   {room.desc}
                 </p>
 
-                {/* Amenities */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.4rem" }}>
                   {room.amenities.map((a) => (
                     <span
@@ -584,7 +580,6 @@ export default function Rooms() {
                   ))}
                 </div>
 
-                {/* Book button */}
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.96 }}
