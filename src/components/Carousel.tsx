@@ -10,6 +10,8 @@ interface CarouselProps {
   height?: string;
   showArrows?: boolean;
   showDots?: boolean;
+  objectFit?: 'cover' | 'contain';
+  background?: string;
 }
 
 const variants = {
@@ -46,6 +48,8 @@ export default function Carousel({
   height = '400px',
   showArrows = true,
   showDots = true,
+  objectFit = 'cover',
+  background,
 }: CarouselProps) {
   const [[page, direction], setPage] = useState([0, 0]);
   const [isPaused, setIsPaused] = useState(false);
@@ -100,12 +104,13 @@ export default function Carousel({
             }
           }}
           className="absolute inset-0 w-full h-full"
+          style={background ? { background } : undefined}
         >
           <Image
             src={images[imageIndex]}
             alt={`${alt} - Slide ${imageIndex + 1}`}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit }}
             priority={imageIndex === 0}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           />

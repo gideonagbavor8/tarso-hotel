@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform, useInView, animate } from "framer-motion";
 import Image from "next/image";
 import { Fragment, useRef, useState, useEffect } from "react";
-import Carousel from "@/components/Carousel";
 
 function CountUp({ from, to, duration, suffix = "", decimals = 0, prefix = "" }: { from: number, to: number, duration: number, suffix?: string, decimals?: number, prefix?: string }) {
   const ref = useRef(null);
@@ -40,6 +39,14 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
+  }, []);
+
   const scrollTo = (href: string) => {
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -50,22 +57,26 @@ export default function Hero() {
       id="hero"
       ref={ref}
       className="relative overflow-hidden flex flex-col items-center justify-center max-[640px]:!pt-[120px]"
-      style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem" }}
+      style={{ minHeight: "105vh", paddingTop: "100px", paddingLeft: "5%", paddingRight: "5%", paddingBottom: "5rem", overflow: "hidden" }}
     >
-      {/* Background Image Carousel */}
-      <motion.div className="absolute inset-0 w-full" style={{ zIndex: 0, height: "110%", y }}>
-        <Carousel
-          images={[
-            "/images/hero/hero-bg.png",
-            "/images/hero/IMG-20260706-WA0018.webp",
-            "/images/hero/IMG-20260706-WA0027.webp",
-            "/images/hero/IMG-20260706-WA0031.webp",
-            "/images/hero/IMG-20260706-WA0046.webp"
-          ]}
-          alt="Tarso Hotel — Ho, Volta Region, Ghana"
-          height="100%"
-        />
-      </motion.div>
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        src="/videos/hero-video.mp4"
+        poster="/images/hero-bg.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+      />
 
       {/* Dark overlay */}
       <div

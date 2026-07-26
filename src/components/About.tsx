@@ -67,22 +67,27 @@ export default function About() {
           <div
             style={{
               width: "100%",
-              aspectRatio: "4/5",
+              height: "auto",
+              minHeight: "320px",
               borderRadius: "3px",
               position: "relative",
               overflow: "hidden",
+              background: "var(--cream)",
             }}
           >
             <Carousel
               images={[
-                "/images/exterior/hotel-exterior.png",
-                "/images/exterior/IMG-20260706-WA0011.jpg",
-                "/images/exterior/IMG-20260706-WA0017.jpg",
-                "/images/exterior/IMG-20260706-WA0040.jpg",
-                "/images/exterior/IMG-20260706-WA0048.jpg"
+                "/images/exterior/exterior.jpeg",
+                "/images/exterior/exterior2.jpeg",
+                "/images/exterior/exterior5.jpg",
+                "/images/exterior/exterior3.jpeg",
+                "/images/exterior/exterior4.jpeg",
+                "/images/exterior/exterior6.jpeg"
               ]}
               alt="Tarso Hotel exterior — Ho, Volta Region, Ghana"
-              height="100%"
+              height="420px"
+              objectFit="contain"
+              background="var(--cream)"
             />
           </div>
 
