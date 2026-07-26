@@ -177,9 +177,19 @@ export default function Booking() {
               onChange={(e) => setRoomType(e.target.value)}
               style={inputStyle}
             >
-              <option>Self-Contained (GH₵150)</option>
-              <option>Shared Bathroom (GH₵100)</option>
-              <option>Family Room (GH₵200)</option>
+              <option>Room 5 — Luxury Self-Contain with Kitchenette, DSTV (GH₵500)</option>
+              <option>Room 6 — Self-Contain, AC, Water Heater, Fridge, TV, Queen Bed (GH₵350)</option>
+              <option>Room 7 — Double Bed, Common Bathhouse, Fan (GH₵100)</option>
+              <option>Room 8 — Self-Contain, AC, Fridge, Queens Bed, Water Heater, Fan (GH₵250)</option>
+              <option>Room 9 — Self-Contain, AC, Fridge, Queens Bed, TV, Fan (GH₵230)</option>
+              <option>Room 10 — Double Bed, Common Bathhouse, Fan (GH₵80)</option>
+              <option>Room 11 — Double Bed, Common Bathhouse, Fan (GH₵80)</option>
+              <option>Room 14 — Self-Contain, Double Bed, Fan, TV (GH₵150)</option>
+              <option>Room 15 — Self-Contain, Double Bed, Fan, TV (GH₵150)</option>
+              <option>Room 16 — Self-Contain, Double Bed, Fan, TV (GH₵150)</option>
+              <option>Room 17 — Self-Contain, AC, Queens Bed, Fridge, TV, Water Heater, Fan (GH₵250)</option>
+              <option>Room 19 — Self-Contain, AC, Queens Bed, Fridge, TV, Wardrobe, Kitchenette (GH₵400)</option>
+              <option>Room 20 — Self-Contain, Double Bed, Fan, TV (GH₵150)</option>
             </select>
           </div>
 
