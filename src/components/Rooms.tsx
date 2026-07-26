@@ -15,6 +15,19 @@ const fadeUp = {
 
 const rooms = [
   {
+    tag: "Extended Stay",
+    title: "Family Room",
+    desc: "A spacious room with two beds, suitable for families or colleagues travelling together.",
+    amenities: ["Two Beds", "En-suite", "Ceiling Fan"],
+    images: [
+      "/images/room-family/room-fam.jpeg",
+      "/images/room-family/room-fam2.jpeg",
+      "/images/room-family/room-fam4.jpeg",
+      "/images/room-family/room-fam5.jpeg",
+      "/images/room-family/room-fam3.jpeg",
+    ],
+  },
+  {
     tag: "Most Popular",
     title: "Self-Contained Room",
     desc: "Private en-suite bathroom, ceiling fan, wardrobe, and a comfortable double bed.",
@@ -39,20 +52,8 @@ const rooms = [
       "/images/room-shared/room-share5.jpeg",
       "/images/room-shared/room-share3.jpeg",
     ],
-  },
-  {
-    tag: "Extended Stay",
-    title: "Family Room",
-    desc: "A spacious room with two beds, suitable for families or colleagues travelling together.",
-    amenities: ["Two Beds", "En-suite", "Ceiling Fan"],
-    images: [
-      "/images/room-family/room-fam.jpeg",
-      "/images/room-family/room-fam2.jpeg",
-      "/images/room-family/room-fam4.jpeg",
-      "/images/room-family/room-fam5.jpeg",
-      "/images/room-family/room-fam3.jpeg",
-    ],
-  },
+  }
+  
 ];
 
 const rateRows = [
