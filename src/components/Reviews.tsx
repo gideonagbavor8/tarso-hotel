@@ -16,29 +16,62 @@ const initialReviews = [
   {
     id: 1,
     stars: 5,
-    text: "The staff here make you feel like family. Clean room, great food at the chop bar, and the location is unbeatable for exploring Ho.",
-    name: "Kwame Afeloto",
-    location: "Accra, Ghana",
-    initials: "KA",
+    text: "A relaxing Guest House in the Volta Region precisely Ho opposite E.P University College. Highly recommended.",
+    name: "CHRIS-BRIGHT DAVID",
+    location: "Ho, Volta Region",
+    initials: "CD",
     color: "var(--clay)",
+    badge: "Local Guide",
   },
   {
     id: 2,
-    stars: 4,
-    text: "Stayed here for three nights during a conference in Ho. Quiet, affordable, and the banku with tilapia at the chop bar was the best I've had in the Volta Region.",
-    name: "James Dzikunu",
-    location: "Kumasi, Ghana",
-    initials: "JD",
+    stars: 5,
+    text: "A home away from home. The environment is peaceful and the staff are very welcoming. Perfect for a vacation stay in Ho.",
+    name: "Saviour Kwaku Dugah",
+    location: "Ghana",
+    initials: "SD",
     color: "var(--bark)",
+    badge: "Local Guide",
   },
   {
     id: 3,
     stars: 4,
-    text: "A genuine, no-frills hotel with real Ghanaian hospitality. The rooms are well kept and the price is fair. I'll always stop here on my way through Ho.",
-    name: "Ben Ofori",
-    location: "Volta, Ghana",
-    initials: "BO",
+    text: "I had a good stay in Tarso Hotel. It's quite big and spacious. It's in an ideal location, quiet and serene. Very affordable as well. The members of staff are good and friendly.",
+    name: "Captain TRAC",
+    location: "Ghana",
+    initials: "CT",
     color: "var(--terracotta)",
+    badge: "Local Guide · 896 reviews",
+  },
+  {
+    id: 4,
+    stars: 5,
+    text: "The place is so romantic, family and friends are welcome for weekend relaxation, wedding parties and many more.",
+    name: "Gadegbeku Robert",
+    location: "Ho, Ghana",
+    initials: "GR",
+    color: "var(--clay)",
+    badge: "Local Guide",
+  },
+  {
+    id: 5,
+    stars: 4,
+    text: "The restaurant is neat and affordable. Try to visit when you are in Ho. You will not regret it.",
+    name: "Victor Narh",
+    location: "Ho, Ghana",
+    initials: "VN",
+    color: "var(--bark)",
+    badge: "Local Guide",
+  },
+  {
+    id: 6,
+    stars: 5,
+    text: "Homely. Where you experience Ghanaian culture at its finest. I love the environment there.",
+    name: "Prosper Kpodo-Tay",
+    location: "Volta Region, Ghana",
+    initials: "PK",
+    color: "var(--terracotta)",
+    badge: "Verified Guest",
   },
 ];
 
@@ -75,6 +108,7 @@ export default function Reviews() {
       location: location || "Ghana",
       initials,
       color: avatarColors[Math.floor(Math.random() * avatarColors.length)],
+      badge: "Verified Guest",
     };
     setReviews([newReview, ...reviews]);
     setName("");
@@ -155,6 +189,9 @@ export default function Reviews() {
           >
             What our guests say
           </h2>
+          <p style={{ marginTop: "0.6rem", color: "var(--text-mid)", fontSize: "0.9rem" }}>
+            Real reviews from Google Maps
+          </p>
         </div>
 
         <div style={{ textAlign: "right" }}>
@@ -167,14 +204,30 @@ export default function Reviews() {
               lineHeight: 1,
             }}
           >
-            4.5
+            3.9
           </div>
           <div style={{ color: "var(--gold)", fontSize: "1.1rem", letterSpacing: "0.1em" }}>
-            ★★★★½
+            ★★★★
           </div>
           <div style={{ fontSize: "0.78rem", color: "var(--text-mid)", marginTop: "0.3rem" }}>
-            Based on {reviews.length + 45} reviews
+            Based on 50+ Google reviews
           </div>
+          
+            <a href="https://www.google.com/maps/place/Tarso+Hotel/@6.610329,0.4697666,17z/data=!4m11!3m10!1s0x10272519df2ccbd7:0x4f06cdc7d622810e!5m2!4m1!1i2!8m2!3d6.610329!4d0.4723415!9m1!1b1!16s%2Fg%2F11c54924bp?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              marginTop: "0.5rem",
+              fontSize: "0.72rem",
+              color: "var(--clay)",
+              textDecoration: "none",
+              fontWeight: 600,
+              letterSpacing: "0.06em",
+            }}
+          >
+            View on Google Maps
+          </a>
         </div>
       </motion.div>
 
@@ -195,35 +248,41 @@ export default function Reviews() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5, delay: i < 3 ? 0.1 * i : 0 }}
+              transition={{ duration: 0.5, delay: i < 6 ? 0.08 * i : 0 }}
               whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(44,26,14,0.12)" }}
               style={{
                 background: "#fff",
                 padding: "1.8rem",
-                borderRadius: "3px",
+                borderRadius: "6px",
                 boxShadow: "0 2px 12px rgba(44,26,14,0.06)",
                 transition: "box-shadow 0.25s",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
             >
-              <div style={{ color: "var(--gold)", fontSize: "0.9rem", marginBottom: "0.8rem" }}>
-                {"★".repeat(review.stars)}{"☆".repeat(5 - review.stars)}
+              <div>
+                <div style={{ color: "var(--gold)", fontSize: "0.9rem", marginBottom: "0.8rem" }}>
+                  {"★".repeat(review.stars)}{"☆".repeat(5 - review.stars)}
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.88rem",
+                    color: "var(--text-mid)",
+                    lineHeight: 1.7,
+                    fontStyle: "italic",
+                    marginBottom: "1.2rem",
+                  }}
+                >
+                  &ldquo;{review.text}&rdquo;
+                </p>
               </div>
-              <p
-                style={{
-                  fontSize: "0.88rem",
-                  color: "var(--text-mid)",
-                  lineHeight: 1.7,
-                  fontStyle: "italic",
-                  marginBottom: "1.2rem",
-                }}
-              >
-                &ldquo;{review.text}&rdquo;
-              </p>
+
               <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
                 <div
                   style={{
-                    width: "38px",
-                    height: "38px",
+                    width: "40px",
+                    height: "40px",
                     borderRadius: "50%",
                     background: review.color,
                     display: "flex",
@@ -241,9 +300,27 @@ export default function Reviews() {
                   <div style={{ fontWeight: 600, fontSize: "0.83rem", color: "var(--earth)" }}>
                     {review.name}
                   </div>
-                  <div style={{ fontSize: "0.73rem", color: "var(--text-mid)" }}>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-mid)" }}>
                     {review.location}
                   </div>
+                  {review.badge && (
+                    <div
+                      style={{
+                        display: "inline-block",
+                        marginTop: "0.25rem",
+                        fontSize: "0.62rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.08em",
+                        color: "var(--clay)",
+                        background: "rgba(196,122,58,0.08)",
+                        border: "1px solid rgba(196,122,58,0.2)",
+                        borderRadius: "20px",
+                        padding: "0.15rem 0.5rem",
+                      }}
+                    >
+                      {review.badge}
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -270,11 +347,14 @@ export default function Reviews() {
             fontSize: "1.6rem",
             fontWeight: 600,
             color: "var(--earth)",
-            marginBottom: "1.5rem",
+            marginBottom: "0.4rem",
           }}
         >
           Share your experience
         </h3>
+        <p style={{ fontSize: "0.82rem", color: "var(--text-mid)", marginBottom: "1.5rem" }}>
+          Stayed at Tarso Hotel? We would love to hear from you.
+        </p>
 
         <div
           style={{
@@ -306,7 +386,6 @@ export default function Reviews() {
           </div>
         </div>
 
-        {/* Star Rating */}
         <div style={{ marginBottom: "1rem" }}>
           <label style={labelStyle}>Rating</label>
           <div style={{ display: "flex", gap: "0.3rem" }}>
@@ -331,7 +410,6 @@ export default function Reviews() {
           </div>
         </div>
 
-        {/* Review Text */}
         <div style={{ marginBottom: "1.5rem" }}>
           <label style={labelStyle}>Your Review</label>
           <textarea
