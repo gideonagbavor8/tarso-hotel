@@ -62,3 +62,7 @@ body {
   background: var(--clay);
   border-radius: 3px;
 }
+
+.reviews-grid::-webkit-scrollbar {
+  display: none;
+}
