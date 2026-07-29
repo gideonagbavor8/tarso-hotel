@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import { Phone, MapPin, Clock, Navigation } from "lucide-react";
+import { Phone, MapPin, Clock, Navigation, Mail } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -83,29 +83,35 @@ export default function Contact() {
 
   // Styled contact items data
   const contactItems = [
-    {
-      icon: MapPin,
-      title: "Address",
-      content: "Amedzofe Road, Ho, Volta Region, Ghana",
-      link: "https://maps.google.com/?q=Tarso+Hotel+Ho+Ghana",
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      content: "+233 24 123 4567 / +233 20 987 6543",
-      link: "tel:+233241234567",
-    },
-    {
-      icon: Clock,
-      title: "Opening Hours",
-      content: "Reception: 24/7 · Chop Bar: 11 AM - 10 PM",
-    },
-    {
-      icon: Navigation,
-      title: "Getting Here",
-      content: "Centrally located on Amedzofe Road, near Evangelical Presbyterian University College (EPUC).",
-    },
-  ];
+  {
+    icon: MapPin,
+    title: "Address",
+    content: "Amedzofe Road, opposite E.P. University College, Ho, Volta Region, Ghana",
+    link: "https://maps.google.com/?q=Tarso+Hotel+opposite+EP+University+College+Ho+Ghana",
+  },
+  {
+    icon: Phone,
+    title: "Phone",
+    content: "+233 24 513 2299",
+    link: "tel:+233245132299",
+  },
+  {
+    icon: Mail, // ← make sure you import Mail from "lucide-react"
+    title: "Email",
+    content: "tarsohotel100@gmail.com",
+    link: "mailto:tarsohotel100@gmail.com",
+  },
+  {
+    icon: Clock,
+    title: "Opening Hours",
+    content: "Reception: 24/7 · Chop Bar: 11 AM - 10 PM",
+  },
+  {
+    icon: Navigation,
+    title: "Getting Here",
+    content: "Centrally located on Amedzofe Road, opposite Evangelical Presbyterian University College (EPUC).",
+  },
+];
 
   return (
     <section
@@ -330,10 +336,10 @@ export default function Contact() {
                     fontFamily: "var(--font-inter)",
                   }}
                 >
-                  Tarso Hotel, Amedzofe Road, Ho, Volta Region, Ghana.
+                  Tarso Hotel, Amedzofe Road (opposite E.P. University College), Ho, Volta Region, Ghana.
                 </p>
                 <a
-                  href="https://maps.google.com/?q=Tarso+Hotel+Ho+Ghana"
+                  href="https://maps.google.com/?q=Tarso+Hotel+opposite+EP+University+College+Ho+Ghana"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
